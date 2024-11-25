@@ -802,6 +802,7 @@ f1_1_list = []
 
 if __name__ == "__main__":
 
+    seed_everything(seed=args.seed)
     os.environ['NUMEXPR_MAX_THREADS'] = r'8'
     
     if args.method == 'homo':
@@ -847,6 +848,9 @@ if __name__ == "__main__":
         fh = logging.FileHandler(log_path, mode='w')
         fh.setFormatter(logging.Formatter(log_format))
         logging.getLogger().addHandler(fh)
+
+        # if it's the first time to load data
+        dataset = load_dataset(args)
 
         for runs in range(3):
             seed_everything(seed=runs)
@@ -915,6 +919,9 @@ if __name__ == "__main__":
         fh = logging.FileHandler(log_path, mode='w')
         fh.setFormatter(logging.Formatter(log_format))
         logging.getLogger().addHandler(fh)
+
+        # if it's the first time to load data
+        dataset = load_dataset(args)
 
         for runs in range(3):
             logging.info(f"\nRun {runs} begins...")
